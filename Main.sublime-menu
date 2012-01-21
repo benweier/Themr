@@ -1,0 +1,52 @@
+[
+	{
+		"caption": "Preferences",
+		"mnemonic": "n",
+		"id": "preferences",
+		"children":
+		[
+			{
+				"caption": "Themr",
+				"mnemonic": "T",
+				"id": "themr",
+				"children":
+				[
+					{
+						"caption": "Default",
+						"id": "default",
+						"command": "change_theme",
+						"args":
+							{
+								"t": "Default.sublime-theme"
+							}
+					},
+					{
+						"caption": "Soda",
+						"id": "soda",
+						"children":
+						[
+							{
+								"caption": "Light",
+								"id": "soda light",
+								"command": "change_theme",
+								"args":
+								{
+									"t": "Soda Light.sublime-theme"
+								}
+							},
+							{
+								"caption": "Dark",
+								"id": "soda dark",
+								"command": "change_theme",
+								"args":
+								{
+									"t": "Soda Dark.sublime-theme"
+								}
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+]
