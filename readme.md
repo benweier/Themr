@@ -8,7 +8,8 @@ Install through Package Control or extract Themr into your Packages folder
 Select desired theme from Themr menu located under Preferences
 
 # Todo
-- Dynamically build Themr menu from list of installed packages
+- Dynamically build theme menu from list of installed packages
+- Add command pallete option to select a theme
 
 # Known Issues: 21 Jan 2012
 - Custom themes do not fully load after selecting from menu
