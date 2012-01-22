@@ -8,7 +8,8 @@ class ChangeThemeCommand(sublime_plugin.ApplicationCommand):
 		sublime.status_message("Themr: " + self.get_theme())
 
 	def run(self, t):
-		self.set_theme(t)
+		if self.get_theme() != t:
+			self.set_theme(t)
 
 	def list_themes(self):
 		# packages = os.listdir(sublime.packages_path())
