@@ -1,15 +1,15 @@
 # About
-This is a Sublime Text 2 Theme Manager for quickly and easily changing the selected theme.
+This is a Sublime Text 2 Theme Manager for quickly and easily switching themes.
 
 # Installation
-Install through Package Control or extract Themr into your Packages folder
+Install through Package Control or extract Themr into your Packages folder.
 
 # Usage
-Select desired theme from Themr menu located under Preferences
+Select desired theme from the Themr menu located under Preferences.
 
 # Todo
-- Dynamically build theme menu from list of installed packages
-- Add command pallete option to select a theme
+- Dynamically build theme menu from list of installed themes
+- Add command pallete options
 
 # Known Issues: 21 Jan 2012
 - Custom themes do not fully load after selecting from menu
