@@ -1,5 +1,5 @@
 # About
-This is a Theme Manager for Sublime Text 2 allowing quick and easy changes to the selected theme.
+This is a Sublime Text 2 Theme Manager for quickly and easily changing the selected theme.
 
 # Installation
 Install through Package Control or extract Themr into your Packages folder
