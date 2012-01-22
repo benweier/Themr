@@ -20,7 +20,7 @@ class ChangeThemeCommand(sublime_plugin.ApplicationCommand):
 
 	def set_theme(self, t):
 		self.settings.set("theme", t)
-		sublime.save_settings("Global.sublime-settings")
+		# sublime.save_settings("Global.sublime-settings")
 		if self.get_theme() == t:
 			# TODO update checkbox on selected theme in menu
 			sublime.status_message("Themr: " + t)
