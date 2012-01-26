@@ -1,6 +1,6 @@
 import sublime, sublime_plugin
 
-class ChangeThemeCommand(sublime_plugin.ApplicationCommand):
+class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 	def __init__(self):
 		# TODO get list of theme files to build menu structure
 		# TODO use command pallete to run a theme menu rebuild
@@ -11,10 +11,6 @@ class ChangeThemeCommand(sublime_plugin.ApplicationCommand):
 		if self.get_theme() != t:
 			self.set_theme(t)
 
-	def list_themes(self):
-		# packages = os.listdir(sublime.packages_path())
-		return
-
 	def get_theme(self):
 		return self.settings.get("theme", "Default.sublime-theme")
 
@@ -22,7 +18,6 @@ class ChangeThemeCommand(sublime_plugin.ApplicationCommand):
 		self.settings.set("theme", t)
 		sublime.save_settings("Global.sublime-settings")
 		if self.get_theme() == t:
-			# TODO update checkbox on selected theme in menu
 			sublime.status_message("Themr: " + t)
 		else:
 			sublime.status_message("Error saving theme. The read/write operation may have failed.")
