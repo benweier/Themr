@@ -13,39 +13,33 @@
 				[
 					{
 						"caption": "Default",
-						"id": "default",
-						"command": "change_theme",
+						"id": "Default.sublime-theme",
+						"command": "switch_theme",
 						"args":
-							{
-								"t": "Default.sublime-theme"
-							}
+						{
+							"t": "Default.sublime-theme"
+						},
+						"checkbox": true
 					},
 					{
-						"caption": "Soda",
-						"id": "soda",
-						"children":
-						[
-							{
-								"caption": "Light",
-								"id": "soda light",
-								"command": "change_theme",
-								"args":
-								{
-									"t": "Soda Light.sublime-theme"
-								}
-								
-							},
-							{
-								"caption": "Dark",
-								"id": "soda dark",
-								"command": "change_theme",
-								"args":
-								{
-									"t": "Soda Dark.sublime-theme"
-								}
-								
-							}
-						]
+						"caption": "Soda Light",
+						"id": "soda_light",
+						"command": "switch_theme",
+						"args":
+						{
+							"t": "Soda Light.sublime-theme"
+						},
+						"checkbox": true
+					},
+					{
+						"caption": "Soda Dark",
+						"id": "soda_dark",
+						"command": "switch_theme",
+						"args":
+						{
+							"t": "Soda Dark.sublime-theme"
+						},
+						"checkbox": true
 					}
 				]
 			}
