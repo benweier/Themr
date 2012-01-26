@@ -1,7 +1,7 @@
 [
 	{
 		"caption": "Themr: Default theme",
-		"command": "change_theme",
+		"command": "switch_theme",
 		"args":
 		{
 			"t": "Default.sublime-theme"
@@ -9,7 +9,7 @@
 	},
 	{
 		"caption": "Themr: Soda Light theme",
-		"command": "change_theme",
+		"command": "switch_theme",
 		"args":
 		{
 			"t": "Soda Light.sublime-theme"
@@ -17,7 +17,7 @@
 	},
 	{
 		"caption": "Themr: Soda Dark theme",
-		"command": "change_theme",
+		"command": "switch_theme",
 		"args":
 		{
 			"t": "Soda Dark.sublime-theme"
