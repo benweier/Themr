@@ -1,5 +1,5 @@
 # About
-Themr is a Sublime Text 2 Theme Switcher for quickly and easily choosing themes.
+Themr is a Sublime Text 2 Theme Switcher for quickly and easily changing themes.
 
 # Installation
 Install through Package Control or extract Themr into your Packages folder.
