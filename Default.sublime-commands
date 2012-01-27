@@ -1,26 +1,23 @@
 [
-	{
-		"caption": "Themr: Default theme",
-		"command": "switch_theme",
-		"args":
-		{
-			"t": "Default.sublime-theme"
-		}
-	},
-	{
-		"caption": "Themr: Soda Light theme",
-		"command": "switch_theme",
-		"args":
-		{
-			"t": "Soda Light.sublime-theme"
-		}
-	},
-	{
-		"caption": "Themr: Soda Dark theme",
-		"command": "switch_theme",
-		"args":
-		{
-			"t": "Soda Dark.sublime-theme"
-		}
-	}
+    {
+        "caption": "Themr: Default", 
+        "args": {
+            "t": "Default.sublime-theme"
+        }, 
+        "command": "switch_theme"
+    }, 
+    {
+        "caption": "Themr: Soda Dark", 
+        "args": {
+            "t": "Soda Dark.sublime-theme"
+        }, 
+        "command": "switch_theme"
+    }, 
+    {
+        "caption": "Themr: Soda Light", 
+        "args": {
+            "t": "Soda Light.sublime-theme"
+        }, 
+        "command": "switch_theme"
+    }
 ]
