@@ -9,40 +9,37 @@ if sublime.arch() == 'windows':
 else:
 	sep = '/'
 
+def theme_data():
+	packages = os.listdir(sublime.packages_path())
+	themes = []
+	data = []
+
+	for package in (package for package in packages if package.startswith('Theme -')):
+		dirs = os.listdir(sublime.packages_path() + sep + package)
+
+		for filename in (filenames for filenames in dirs if filenames.endswith('.sublime-theme')):
+			themes.append(filename)
+
+	sublime.status_message('Themr: ' + str(len(themes)) + ' themes found.')
+
+	for theme in themes:
+		data.append({'caption': 'Themr: ' + os.path.splitext(theme)[0], 'command': 'switch_theme', 'args': { 't': theme }})
+
+	data.append({'caption': 'Themr: Scan Themes', 'command' : 'scan_themes'})
+	commands = json.dumps(data, indent = 4)
+
+	f = open(themr + sep + 'Default.sublime-commands', 'w')
+	f.write(commands + '\n')
+	f.close
+
 class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 	def __init__(self):
 		self.settings = sublime.load_settings('Global.sublime-settings')
-		sublime.status_message('Themr: ' + self.get_theme())
-		
-		self.themes = self.list_themes()
-		self.build_theme_data()
+		theme_data()
 
 	def run(self, t):
 		if self.get_theme() != t:
 			self.set_theme(t)
-
-	def list_themes(self):
-		themes = []
-		packages = os.listdir(sublime.packages_path())
-
-		for package in (package for package in packages if package.startswith('Theme -')):
-			theme = os.listdir(sublime.packages_path() + sep + package)
-
-			for filename in (filenames for filenames in theme if filenames.endswith('.sublime-theme')):
-				themes.append(filename)
-
-		return themes
-
-	def build_theme_data(self):
-		data = []
-
-		for theme in self.themes:
-			data.append({'caption': 'Themr: ' + os.path.splitext(theme)[0], 'command': 'switch_theme', 'args': { 't': theme }})
-			commands = json.dumps(data, indent = 4)
-
-		f = open(themr + sep + 'Default.sublime-commands', 'w')
-		f.write(commands + '\n')
-		f.close
 
 	def get_theme(self):
 		return self.settings.get('theme', 'Default.sublime-theme')
@@ -55,3 +52,7 @@ class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 			sublime.status_message('Themr: ' + t)
 		else:
 			sublime.status_message('Error saving theme. The read/write operation may have failed.')
+
+class ScanThemesCommand(sublime_plugin.ApplicationCommand):
+	def run(self):
+		theme_data()

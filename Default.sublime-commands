@@ -19,5 +19,9 @@
             "t": "Soda Light.sublime-theme"
         }, 
         "command": "switch_theme"
+    }, 
+    {
+        "caption": "Themr: Scan Themes", 
+        "command": "scan_themes"
     }
 ]
