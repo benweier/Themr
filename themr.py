@@ -25,7 +25,7 @@ def theme_data():
 	for theme in themes:
 		data.append({'caption': 'Themr: ' + os.path.splitext(theme)[0], 'command': 'switch_theme', 'args': { 't': theme }})
 
-	data.append({'caption': 'Themr: Scan Themes', 'command' : 'scan_themes'})
+	data.append({'caption': 'Themr: Reload themes', 'command' : 'reload_themes'})
 	commands = json.dumps(data, indent = 4)
 
 	f = open(themr + sep + 'Default.sublime-commands', 'w')
@@ -34,7 +34,7 @@ def theme_data():
 
 class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 	def __init__(self):
-		self.settings = sublime.load_settings('Global.sublime-settings')
+		self.settings = sublime.load_settings('Preferences.sublime-settings')
 		theme_data()
 
 	def run(self, t):
@@ -46,13 +46,13 @@ class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 
 	def set_theme(self, t):
 		self.settings.set('theme', t)
-		sublime.save_settings('Global.sublime-settings')
+		sublime.save_settings('Preferences.sublime-settings')
 
 		if self.get_theme() == t:
 			sublime.status_message('Themr: ' + t)
 		else:
 			sublime.status_message('Error saving theme. The read/write operation may have failed.')
 
-class ScanThemesCommand(sublime_plugin.ApplicationCommand):
+class ReloadThemesCommand(sublime_plugin.ApplicationCommand):
 	def run(self):
 		theme_data()
