@@ -4,6 +4,11 @@ import json
 
 themr = os.getcwd()
 
+if sublime.version() >= 2174:
+	pref = 'Preferences.sublime-settings'
+elif sublime.version() < 2174:
+	pref = 'Global.sublime-settings'
+
 if sublime.arch() == 'windows':
 	sep = '\\'
 else:
@@ -34,7 +39,7 @@ def theme_data():
 
 class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 	def __init__(self):
-		self.settings = sublime.load_settings('Preferences.sublime-settings')
+		self.settings = sublime.load_settings(pref)
 		theme_data()
 
 	def run(self, t):
@@ -46,7 +51,7 @@ class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 
 	def set_theme(self, t):
 		self.settings.set('theme', t)
-		sublime.save_settings('Preferences.sublime-settings')
+		sublime.save_settings(pref)
 
 		if self.get_theme() == t:
 			sublime.status_message('Themr: ' + t)
