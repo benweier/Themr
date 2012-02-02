@@ -11,5 +11,5 @@ Select desired theme from the Themr menu located under Preferences or type "Them
 - Dynamically build theme menu from list of installed packages
 
 # Known Issues: 21 Jan 2012
-- Custom themes do not fully load after selecting from menu
+- Custom themes do not fully load. This relates to how ST2 load the theme files.
 - Menu items don't display a checkbox to indicate selected theme
