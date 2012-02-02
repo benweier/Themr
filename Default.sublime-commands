@@ -21,7 +21,7 @@
         "command": "switch_theme"
     }, 
     {
-        "caption": "Themr: Scan Themes", 
-        "command": "scan_themes"
+        "caption": "Themr: Reload themes", 
+        "command": "reload_themes"
     }
 ]
