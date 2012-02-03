@@ -4,9 +4,9 @@ import json
 
 themr = os.getcwd()
 
-if sublime.version() >= 2174:
+if sublime.version() <= 2174:
 	pref = 'Preferences.sublime-settings'
-elif sublime.version() < 2174:
+else:
 	pref = 'Global.sublime-settings'
 
 if sublime.arch() == 'windows':
