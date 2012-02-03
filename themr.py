@@ -15,11 +15,14 @@ else:
 	sep = '/'
 
 def theme_data():
+	settings = sublime.load_settings(pref)
 	packages = os.listdir(sublime.packages_path())
+	ignored_packages = settings.get('ignored_packages')
 	themes = []
 	data = []
 
-	for package in (package for package in packages if package.startswith('Theme -')):
+	for package in (package for package in packages if package.startswith('Theme -')
+		and package not in ignored_packages):
 		dirs = os.listdir(sublime.packages_path() + sep + package)
 
 		for filename in (filenames for filenames in dirs if filenames.endswith('.sublime-theme')):
@@ -39,7 +42,7 @@ def theme_data():
 
 class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 	def __init__(self):
-		self.settings = sublime.load_settings(pref)
+		settings = sublime.load_settings(pref)
 		theme_data()
 
 	def run(self, t):
@@ -47,10 +50,10 @@ class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 			self.set_theme(t)
 
 	def get_theme(self):
-		return self.settings.get('theme', 'Default.sublime-theme')
+		return settings.get('theme', 'Default.sublime-theme')
 
 	def set_theme(self, t):
-		self.settings.set('theme', t)
+		settings.set('theme', t)
 		sublime.save_settings(pref)
 
 		if self.get_theme() == t:
