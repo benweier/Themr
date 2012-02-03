@@ -42,7 +42,7 @@ def theme_data():
 
 class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 	def __init__(self):
-		settings = sublime.load_settings(pref)
+		self.settings = sublime.load_settings(pref)
 		theme_data()
 
 	def run(self, t):
@@ -50,10 +50,10 @@ class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 			self.set_theme(t)
 
 	def get_theme(self):
-		return settings.get('theme', 'Default.sublime-theme')
+		return self.settings.get('theme', 'Default.sublime-theme')
 
 	def set_theme(self, t):
-		settings.set('theme', t)
+		self.settings.set('theme', t)
 		sublime.save_settings(pref)
 
 		if self.get_theme() == t:
