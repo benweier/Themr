@@ -4,25 +4,23 @@ import json
 
 themr = os.getcwd()
 
-if sublime.version() <= 2174:
-	pref = 'Preferences.sublime-settings'
-else:
-	pref = 'Global.sublime-settings'
-
 if sublime.arch() == 'windows':
 	sep = '\\'
 else:
 	sep = '/'
 
+if sublime.version() <= 2174:
+	pref = 'Preferences.sublime-settings'
+else:
+	pref = 'Global.sublime-settings'
+
 def theme_data():
 	settings = sublime.load_settings(pref)
 	packages = os.listdir(sublime.packages_path())
-	ignored_packages = settings.get('ignored_packages')
 	themes = []
 	data = []
 
-	for package in (package for package in packages if package.startswith('Theme -')
-		and package not in ignored_packages):
+	for package in (package for package in packages if package.startswith('Theme -')):
 		dirs = os.listdir(sublime.packages_path() + sep + package)
 
 		for filename in (filenames for filenames in dirs if filenames.endswith('.sublime-theme')):
@@ -42,10 +40,11 @@ def theme_data():
 
 class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 	def __init__(self):
-		self.settings = sublime.load_settings(pref)
 		theme_data()
 
 	def run(self, t):
+		self.settings = sublime.load_settings(pref)
+		
 		if self.get_theme() != t:
 			self.set_theme(t)
 
