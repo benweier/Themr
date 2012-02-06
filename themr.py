@@ -4,11 +4,6 @@ import json
 
 themr = os.getcwd()
 
-if sublime.arch() == 'windows':
-	sep = '\\'
-else:
-	sep = '/'
-
 if sublime.version() <= 2174:
 	pref = 'Preferences.sublime-settings'
 else:
@@ -22,7 +17,7 @@ def theme_data():
 	data = []
 
 	for package in (package for package in packages if package.startswith('Theme -') and package not in ignored_packages):
-		theme = os.listdir(sublime.packages_path() + sep + package)
+		theme = os.listdir(os.path.join(sublime.packages_path(), package))
 
 		for filename in (filenames for filenames in theme if filenames.endswith('.sublime-theme')):
 			themes.append(filename)
