@@ -1,15 +1,11 @@
 # About
-Themr is a Sublime Text 2 Theme Switcher for quickly and easily changing themes.
+Themr is a theme switcher for Sublime Text 2.
 
 # Installation
 Install through Package Control or extract Themr into your Packages folder.
 
 # Usage
-Select desired theme from the Themr menu located under Preferences or type "Themr" into the command pallete.
+Type "Themr" or the name of a theme into the command pallete and select it.
 
-# Todo
-- Dynamically build theme menu from list of installed packages
-
-# Known Issues: 21 Jan 2012
-- Custom themes do not fully load. This relates to how ST2 load the theme files.
-- Menu items don't display a checkbox to indicate selected theme
+# Known Issues: 7 Feb 2012
+- Switching to custom themes causes some minor graphical anomalies in file tabs. ST2 appears to load theme files differently compared to manually editing the settings file. Restart ST2 to fix.
