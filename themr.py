@@ -27,7 +27,7 @@ def theme_data():
 	for theme in themes:
 		data.append({'caption': 'Themr: ' + os.path.splitext(theme)[0], 'command': 'switch_theme', 'args': { 't': theme }})
 
-	data.append({'caption': 'Themr: Reload themes', 'command' : 'reload_themes'})
+	data.append({'caption': 'Themr: Reload themes', 'command': 'reload_themes'})
 	commands = json.dumps(data, indent = 4)
 
 	f = open(os.path.join(sublime.packages_path(), themr, 'Default.sublime-commands'), 'w')
