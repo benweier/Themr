@@ -30,7 +30,7 @@ def theme_data():
 	data.append({'caption': 'Themr: Reload themes', 'command' : 'reload_themes'})
 	commands = json.dumps(data, indent = 4)
 
-	f = open(themr + sep + 'Default.sublime-commands', 'w')
+	f = open(os.path.join(sublime.packages_path(), themr, 'Default.sublime-commands'), 'w')
 	f.write(commands + '\n')
 	f.close
 
