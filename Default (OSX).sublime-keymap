@@ -1,0 +1,3 @@
+[
+	{ "keys": ["super+alt+r"], "command": "reload_themes" }
+]

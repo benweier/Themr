@@ -1,0 +1,3 @@
+[
+	{ "keys": ["ctrl+alt+r"], "command": "reload_themes" }
+]
