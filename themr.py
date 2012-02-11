@@ -20,21 +20,20 @@ def theme_data():
 		for filename in (filenames for filenames in theme if filenames.endswith('.sublime-theme')):
 			themes.append(filename)
 
-	discovered_themes = [{'discovered_themes': themes}]
+	discovered_themes = {'discovered_themes': themes}
 	s = open(os.path.join(sublime.packages_path(), 'Themr', 'themr.sublime-settings'), 'w')
 	s.write(json.dumps(discovered_themes, indent = 4) + '\n')
 	s.close
-
-	sublime.status_message('Themr: ' + str(len(themes)) + ' theme(s) found.')
 
 	for theme in themes:
 		menu.append({'caption': 'Themr: ' + os.path.splitext(theme)[0], 'command': 'switch_theme', 'args': { 't': theme }})
 
 	menu.append({'caption': 'Themr: Reload themes', 'command': 'reload_themes'})
-
 	c = open(os.path.join(sublime.packages_path(), 'Themr', 'Default.sublime-commands'), 'w')
 	c.write(json.dumps(menu, indent = 4) + '\n')
 	c.close
+
+	sublime.status_message('Themr: ' + str(len(themes)) + ' theme(s) found.')
 
 class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 	def __init__(self):
@@ -64,6 +63,7 @@ class CycleThemesCommand(sublime_plugin.ApplicationCommand):
 		themr = sublime.load_settings('themr.sublime-settings')
 		theme = settings.get('theme')
 		discovered_themes = themr.get('discovered_themes')
+
 		i = discovered_themes.index(theme)
 
 		try:
