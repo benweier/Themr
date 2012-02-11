@@ -2,8 +2,6 @@ import sublime, sublime_plugin
 import os
 import json
 
-themr = os.getcwd()
-
 if sublime.version() <= 2174:
 	pref = 'Preferences.sublime-settings'
 else:
@@ -14,7 +12,7 @@ def theme_data():
 	packages = os.listdir(sublime.packages_path())
 	ignored_packages = settings.get('ignored_packages')
 	themes = []
-	data = []
+	menu = []
 
 	for package in (package for package in packages if package.startswith('Theme -') and package not in ignored_packages):
 		theme = os.listdir(os.path.join(sublime.packages_path(), package))
@@ -22,17 +20,21 @@ def theme_data():
 		for filename in (filenames for filenames in theme if filenames.endswith('.sublime-theme')):
 			themes.append(filename)
 
+	discovered_themes = [{'discovered_themes': themes}]
+	s = open(os.path.join(sublime.packages_path(), 'Themr', 'themr.sublime-settings'), 'w')
+	s.write(json.dumps(discovered_themes, indent = 4) + '\n')
+	s.close
+
 	sublime.status_message('Themr: ' + str(len(themes)) + ' theme(s) found.')
 
 	for theme in themes:
-		data.append({'caption': 'Themr: ' + os.path.splitext(theme)[0], 'command': 'switch_theme', 'args': { 't': theme }})
+		menu.append({'caption': 'Themr: ' + os.path.splitext(theme)[0], 'command': 'switch_theme', 'args': { 't': theme }})
 
-	data.append({'caption': 'Themr: Reload themes', 'command': 'reload_themes'})
-	commands = json.dumps(data, indent = 4)
+	menu.append({'caption': 'Themr: Reload themes', 'command': 'reload_themes'})
 
-	f = open(os.path.join(sublime.packages_path(), themr, 'Default.sublime-commands'), 'w')
-	f.write(commands + '\n')
-	f.close
+	c = open(os.path.join(sublime.packages_path(), 'Themr', 'Default.sublime-commands'), 'w')
+	c.write(json.dumps(menu, indent = 4) + '\n')
+	c.close
 
 class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 	def __init__(self):
@@ -50,12 +52,24 @@ class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 	def set_theme(self, t):
 		self.settings.set('theme', t)
 		sublime.save_settings(pref)
-
-		if self.get_theme() == t:
-			sublime.status_message('Themr: ' + t)
-		else:
-			sublime.status_message('Error saving theme. The read/write operation may have failed.')
+		sublime.status_message('Themr: ' + t)
 
 class ReloadThemesCommand(sublime_plugin.ApplicationCommand):
 	def run(self):
 		theme_data()
+
+class CycleThemesCommand(sublime_plugin.ApplicationCommand):
+	def run(self, d):
+		settings = sublime.load_settings(pref)
+		themr = sublime.load_settings('themr.sublime-settings')
+		theme = settings.get('theme')
+		discovered_themes = themr.get('discovered_themes')
+		i = discovered_themes.index(theme)
+
+		try:
+			t = discovered_themes[i + int(d)]
+		except:
+			t = discovered_themes[0]
+
+		settings.set('theme', t)
+		sublime.save_settings(pref)
