@@ -1,4 +1,5 @@
 [
 	{ "keys": ["super+alt+r"], "command": "reload_themes" },
-	{ "keys": ["super+alt+c"], "command": "cycle_themes", "args": {"d": "1"} }
+	{ "keys": ["super+alt+c", "super+alt+t"], "command": "cycle_themes", "args": {"d": 1} },
+	{ "keys": ["super+alt+t", "super+alt+0"], "command": "switch_theme", "args": { "t": "Default.sublime-theme" } }
 ]
