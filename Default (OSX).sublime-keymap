@@ -1,3 +1,4 @@
 [
-	{ "keys": ["super+alt+r"], "command": "reload_themes" }
+	{ "keys": ["super+alt+r"], "command": "reload_themes" },
+	{ "keys": ["super+alt+c"], "command": "cycle_themes", "args": {"d": "1"} }
 ]
