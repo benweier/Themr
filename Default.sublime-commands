@@ -5,21 +5,7 @@
             "t": "Default.sublime-theme"
         }, 
         "command": "switch_theme"
-    }, 
-    {
-        "caption": "Themr: Soda Dark", 
-        "args": {
-            "t": "Soda Dark.sublime-theme"
-        }, 
-        "command": "switch_theme"
-    }, 
-    {
-        "caption": "Themr: Soda Light", 
-        "args": {
-            "t": "Soda Light.sublime-theme"
-        }, 
-        "command": "switch_theme"
-    }, 
+    ,
     {
         "caption": "Themr: Reload themes", 
         "command": "reload_themes"
