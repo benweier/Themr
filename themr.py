@@ -14,7 +14,7 @@ def theme_data():
 	packages = os.listdir(sublime.packages_path())
 	ignored_packages = settings.get('ignored_packages')
 	themes = []
-	menu = []
+	commands = []
 
 	for package in (package for package in packages if package.startswith('Theme -') and package not in ignored_packages):
 		theme = os.listdir(os.path.join(sublime.packages_path(), package))
@@ -28,11 +28,11 @@ def theme_data():
 	s.close
 
 	for theme in themes:
-		menu.append({'caption': 'Themr: ' + os.path.splitext(theme)[0], 'command': 'switch_theme', 'args': { 't': theme }})
+		commands.append({'caption': 'Themr: ' + os.path.splitext(theme)[0], 'command': 'switch_theme', 'args': { 't': theme }})
 
-	menu.append({'caption': 'Themr: Reload themes', 'command': 'reload_themes'})
+	commands.append({'caption': 'Themr: Reload themes', 'command': 'reload_themes'})
 	c = open(os.path.join(sublime.packages_path(), 'Themr', 'Default.sublime-commands'), 'w')
-	c.write(json.dumps(menu, indent = 4) + '\n')
+	c.write(json.dumps(commands, indent = 4) + '\n')
 	c.close
 
 	sublime.status_message('Themr: ' + str(len(themes)) + ' theme(s) found.')
@@ -71,3 +71,4 @@ class CycleThemesCommand(sublime_plugin.ApplicationCommand):
 
 		settings.set('theme', t)
 		sublime.save_settings(pref)
+		sublime.status_message('Themr: ' + t)
