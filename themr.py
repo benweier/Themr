@@ -7,6 +7,8 @@ if sublime.version() <= 2174:
 else:
 	pref = 'Global.sublime-settings'
 
+sublime.set_timeout(theme_data, 3000)
+
 def theme_data():
 	settings = sublime.load_settings(pref)
 	packages = os.listdir(sublime.packages_path())
@@ -36,9 +38,6 @@ def theme_data():
 	sublime.status_message('Themr: ' + str(len(themes)) + ' theme(s) found.')
 
 class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
-	def __init__(self):
-		sublime.set_timeout(theme_data, 3000)
-
 	def run(self, t):
 		self.settings = sublime.load_settings(pref)
 		
@@ -63,7 +62,6 @@ class CycleThemesCommand(sublime_plugin.ApplicationCommand):
 		themr = sublime.load_settings('themr.sublime-settings')
 		theme = settings.get('theme')
 		discovered_themes = themr.get('discovered_themes')
-
 		i = discovered_themes.index(theme)
 
 		try:
