@@ -7,10 +7,9 @@ if sublime.version() <= 2174:
 else:
 	pref = 'Global.sublime-settings'
 
-sublime.set_timeout(theme_data, 3000)
-
 def theme_data():
 	settings = sublime.load_settings(pref)
+	themr = sublime.load_settings('themr.sublime-settings')
 	packages = os.listdir(sublime.packages_path())
 	ignored_packages = settings.get('ignored_packages')
 	themes = []
@@ -22,10 +21,8 @@ def theme_data():
 		for filename in (filenames for filenames in theme if filenames.endswith('.sublime-theme')):
 			themes.append(filename)
 
-	discovered_themes = {'discovered_themes': themes}
-	s = open(os.path.join(sublime.packages_path(), 'Themr', 'themr.sublime-settings'), 'w')
-	s.write(json.dumps(discovered_themes, indent = 4) + '\n')
-	s.close
+	themr.set('discovered_themes', themes)
+	sublime.save_settings('themr.sublime-settings')
 
 	for theme in themes:
 		commands.append({'caption': 'Themr: ' + os.path.splitext(theme)[0], 'command': 'switch_theme', 'args': { 't': theme }})
@@ -36,6 +33,8 @@ def theme_data():
 	c.close
 
 	sublime.status_message('Themr: ' + str(len(themes)) + ' theme(s) found.')
+	
+sublime.set_timeout(theme_data, 3000)
 
 class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
 	def run(self, t):
