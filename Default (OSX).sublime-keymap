@@ -1,5 +1,5 @@
 [
-	{ "keys": ["super+alt+r", "super+alt+t"], "command": "reload_themes" },
-	{ "keys": ["super+alt+c", "super+alt+t"], "command": "cycle_themes", "args": {"d": 1} },
-	{ "keys": ["super+alt+t", "super+alt+0"], "command": "switch_theme", "args": { "t": "Default.sublime-theme" } }
+	{ "keys": ["super+shift+f5"], "command": "themr_list_themes" },
+	{ "keys": ["super+shift+f7"], "command": "themr_next_theme" },
+	{ "keys": ["super+shift+f8"], "command": "themr_prev_theme" }
 ]

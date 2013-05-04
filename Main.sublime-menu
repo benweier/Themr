@@ -1,5 +1,7 @@
 [
 	{
+		"caption": "Preferences",
+		"mnemonic": "n",
 		"id": "preferences",
 		"children":
 		[
@@ -11,18 +13,8 @@
 				[
 					{
 						"caption": "Themr",
-						"mnemonic": "T",
-						"id": "themr",
 						"children":
 						[
-							{
-								"command": "open_file",
-								"args": {
-									"file": "${packages}/Themr/Default (Windows).sublime-keymap",
-									"platform": "Windows"
-								},
-								"caption": "Key Bindings – Default"
-							},
 							{
 								"command": "open_file",
 								"args": {
@@ -42,10 +34,10 @@
 							{
 								"command": "open_file",
 								"args": {
-									"file": "${packages}/User/Default (Windows).sublime-keymap",
+									"file": "${packages}/Themr/Default (Windows).sublime-keymap",
 									"platform": "Windows"
 								},
-								"caption": "Key Bindings – User"
+								"caption": "Key Bindings – Default"
 							},
 							{
 								"command": "open_file",
@@ -63,7 +55,14 @@
 								},
 								"caption": "Key Bindings – User"
 							},
-							{ "caption": "-" }
+							{
+								"command": "open_file",
+								"args": {
+									"file": "${packages}/User/Default (Windows).sublime-keymap",
+									"platform": "Windows"
+								},
+								"caption": "Key Bindings – User"
+							}
 						]
 					}
 				]

@@ -1,13 +1,14 @@
 [
     {
-        "caption": "Themr: Default", 
-        "args": {
-            "t": "Default.sublime-theme"
-        }, 
-        "command": "switch_theme"
+        "caption": "Themr: List schemes",
+        "command": "themr_list_themes"
     },
     {
-        "caption": "Themr: Reload themes", 
-        "command": "reload_themes"
+        "caption": "Themr: Next scheme",
+        "command": "themr_next_theme"
+    },
+    {
+        "caption": "Themr: Previous scheme",
+        "command": "themr_prev_theme"
     }
 ]

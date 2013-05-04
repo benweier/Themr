@@ -1,73 +1,58 @@
 import sublime, sublime_plugin
 import os
-import json
 
-if sublime.version() <= 2174:
-	pref = 'Preferences.sublime-settings'
-else:
-	pref = 'Global.sublime-settings'
+settings = sublime.load_settings('Preferences.sublime-settings')
 
-def theme_data():
-	settings = sublime.load_settings(pref)
-	themr = sublime.load_settings('themr.sublime-settings')
-	packages = os.listdir(sublime.packages_path())
-	ignored_packages = settings.get('ignored_packages')
-	themes = []
-	commands = []
+class Themr():
+	def load_themes(self):
+		themes = []
 
-	for package in (package for package in packages if package.startswith('Theme -') and package not in ignored_packages):
-		theme = os.listdir(os.path.join(sublime.packages_path(), package))
+		for root, dirs, files in os.walk(sublime.packages_path()):
+			for filename in files:
+				if filename.endswith('.sublime-theme'):
+					name = os.path.basename(filename).replace('.sublime-theme', '')
+					themes.append([name, name + '.sublime-theme'])
 
-		for filename in (filenames for filenames in theme if filenames.endswith('.sublime-theme')):
-			themes.append(filename)
+		return themes
 
-	themr.set('discovered_themes', themes)
-	sublime.save_settings('themr.sublime-settings')
-
-	for theme in themes:
-		commands.append({'caption': 'Themr: ' + os.path.splitext(theme)[0], 'command': 'switch_theme', 'args': { 't': theme }})
-
-	commands.append({'caption': 'Themr: Reload themes', 'command': 'reload_themes'})
-	c = open(os.path.join(sublime.packages_path(), 'Themr', 'Default.sublime-commands'), 'w')
-	c.write(json.dumps(commands, indent = 4) + '\n')
-	c.close
-
-	sublime.status_message('Themr: ' + str(len(themes)) + ' theme(s) found.')
-	
-sublime.set_timeout(theme_data, 3000)
-
-class SwitchThemeCommand(sublime_plugin.ApplicationCommand):
-	def run(self, t):
-		self.settings = sublime.load_settings(pref)
-		
-		if self.get_theme() != t:
-			self.set_theme(t)
+	def set_theme(self, s):
+		settings.set('theme', s)
+		sublime.save_settings('Preferences.sublime-settings')
 
 	def get_theme(self):
-		return self.settings.get('theme', 'Default.sublime-theme')
+		return settings.get('theme')
 
-	def set_theme(self, t):
-		self.settings.set('theme', t)
-		sublime.save_settings(pref)
-		sublime.status_message('Themr: ' + t)
+	def cycle_theme(self, d):
+		themes = self.load_themes()
+		the_theme = self.get_theme()
+		the_index = [theme[1] for theme in themes].index(the_theme)
+		num_of_themes = len(themes)
 
-class ReloadThemesCommand(sublime_plugin.ApplicationCommand):
+		if d == 1:
+			index = the_index + 1 if the_index < num_of_themes - 1 else 0
+
+		if d == -1:
+			index = the_index - 1 if the_index > 0 else num_of_themes - 1
+
+		self.set_theme(themes[index][1])
+		sublime.status_message('Themr: ' + themes[index][1])
+
+Themr = Themr()
+
+class ThemrListThemesCommand(sublime_plugin.WindowCommand):
 	def run(self):
-		theme_data()
+		themes = Themr.load_themes()
 
-class CycleThemesCommand(sublime_plugin.ApplicationCommand):
-	def run(self, d):
-		settings = sublime.load_settings(pref)
-		themr = sublime.load_settings('themr.sublime-settings')
-		theme = settings.get('theme')
-		discovered_themes = themr.get('discovered_themes')
-		i = discovered_themes.index(theme)
+		def on_done(index):
+			if index != -1:
+				Themr.set_theme(themes[index][1])
 
-		try:
-			t = discovered_themes[i + int(d)]
-		except:
-			t = discovered_themes[0]
+		self.window.show_quick_panel(themes, on_done)
 
-		settings.set('theme', t)
-		sublime.save_settings(pref)
-		sublime.status_message('Themr: ' + t)
+class ThemrNextThemeCommand(sublime_plugin.WindowCommand):
+	def run(self):
+		Themr.cycle_theme(1)
+
+class ThemrPrevThemeCommand(sublime_plugin.WindowCommand):
+	def run(self):
+		Themr.cycle_theme(-1)
