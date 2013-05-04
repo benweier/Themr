@@ -1,8 +1,6 @@
 import sublime, sublime_plugin
 import os
 
-settings = sublime.load_settings('Preferences.sublime-settings')
-
 class Themr():
 	def load_themes(self):
 		themes = []
@@ -16,11 +14,11 @@ class Themr():
 		return themes
 
 	def set_theme(self, s):
-		settings.set('theme', s)
+		self.settings().set('theme', s)
 		sublime.save_settings('Preferences.sublime-settings')
 
 	def get_theme(self):
-		return settings.get('theme')
+		return self.settings().get('theme')
 
 	def cycle_theme(self, d):
 		themes = self.load_themes()
@@ -36,6 +34,9 @@ class Themr():
 
 		self.set_theme(themes[index][1])
 		sublime.status_message('Themr: ' + themes[index][1])
+
+	def settings(self):
+		return sublime.load_settings('Preferences.sublime-settings')
 
 Themr = Themr()
 
