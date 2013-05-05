@@ -3,19 +3,19 @@ import os, zipfile
 
 class Themr():
 	def load_themes(self):
-		themes = []
+		themes = [['Theme: Default', 'Default.sublime-theme']]
 
 		for root, dirs, files in os.walk(sublime.packages_path()):
 			for filename in (filename for filename in files if filename.endswith('.sublime-theme')):
 				name = filename.replace('.sublime-theme', '')
-				themes.append([name, filename])
+				themes.append(['Theme: ' + name, filename])
 
 		for root, dirs, files in os.walk(sublime.installed_packages_path()):
-			for filename in (filename for filename in files if filename.startswith('Theme - ') and filename.endswith('.sublime-package')):
-				package = zipfile.ZipFile(os.path.join(sublime.installed_packages_path(), filename))
-				for f in (f for f in package.namelist() if f.endswith('.sublime-theme')):
-					name = f.replace('.sublime-theme', '')
-					themes.append([name, f])
+			for package in (package for package in files if package.endswith('.sublime-package')):
+				zf = zipfile.ZipFile(os.path.join(sublime.installed_packages_path(), package))
+				for filename in (filename for filename in zf.namelist() if filename.endswith('.sublime-theme')):
+					name = os.path.basename(filename).replace('.sublime-theme', '')
+					themes.append(['Theme: ' + name, filename])
 
 		return themes
 
@@ -39,7 +39,7 @@ class Themr():
 			index = the_index - 1 if the_index > 0 else num_of_themes - 1
 
 		self.set_theme(themes[index][1])
-		sublime.status_message('Themr: ' + themes[index][1])
+		sublime.status_message(themes[index][0])
 
 	def settings(self):
 		return sublime.load_settings('Preferences.sublime-settings')
@@ -53,7 +53,7 @@ class ThemrListThemesCommand(sublime_plugin.WindowCommand):
 		def on_done(index):
 			if index != -1:
 				Themr.set_theme(themes[index][1])
-				sublime.status_message('Themr: ' + themes[index][0])
+				sublime.status_message(themes[index][0])
 
 		self.window.show_quick_panel(themes, on_done)
 
