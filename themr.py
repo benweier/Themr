@@ -53,6 +53,7 @@ class ThemrListThemesCommand(sublime_plugin.WindowCommand):
 		def on_done(index):
 			if index != -1:
 				Themr.set_theme(themes[index][1])
+				sublime.status_message('Themr: ' + themes[index][0])
 
 		self.window.show_quick_panel(themes, on_done)
 
