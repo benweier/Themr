@@ -7,15 +7,15 @@ class Themr():
 
 		for root, dirs, files in os.walk(sublime.packages_path()):
 			for filename in (filename for filename in files if filename.endswith('.sublime-theme')):
-					name = filename.replace('.sublime-theme', '')
-					themes.append([name, filename])
+				name = filename.replace('.sublime-theme', '')
+				themes.append([name, filename])
 
 		for root, dirs, files in os.walk(sublime.installed_packages_path()):
 			for filename in (filename for filename in files if filename.startswith('Theme - ') and filename.endswith('.sublime-package')):
-					package = zipfile.ZipFile(os.path.join(sublime.installed_packages_path(), filename))
-					for f in (f for f in package.namelist() if f.endswith('.sublime-theme')):
-						name = f.replace('.sublime-theme', '')
-						themes.append([name, f])
+				package = zipfile.ZipFile(os.path.join(sublime.installed_packages_path(), filename))
+				for f in (f for f in package.namelist() if f.endswith('.sublime-theme')):
+					name = f.replace('.sublime-theme', '')
+					themes.append([name, f])
 
 		return themes
 
