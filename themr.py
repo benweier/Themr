@@ -17,6 +17,7 @@ class Themr():
 					name = os.path.basename(filename).replace('.sublime-theme', '')
 					themes.append(['Theme: ' + name, filename])
 
+		themes.sort()
 		return themes
 
 	def set_theme(self, s):
