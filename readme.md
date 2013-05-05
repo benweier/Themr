@@ -11,7 +11,5 @@ The "Themr: Next theme" `ctrl+shift+f7` (Windows/Linux) `super+shift+f7` (OSX) c
 
 The "Themr: Previous theme" `ctrl+shift+f8` (Windows/Linux) `super+shift+f8` (OSX)command will skip to the previous available theme.
 
-# Sublime Text 3 compatibility
-ST3 support is limited to `.sublime-theme` files located in your `/Packages/` directory. Themes saved as `.sublime-package` files (such as through [Package Control](http://wbond.net/sublime_packages/package_control)) in the `/Installed Packages/` directory are not yet supported.
-
-Temporary workaround: unzip the `.sublime-package` file to a folder in the `/Packages/` directory.
+# Sublime Text version compatibility
+Themr is fully compatible with Sublime Text 2 and 3. Standalone folders containing `.sublime-theme` files can be placed anywhere within the `/Packages/` folder while `.sublime-packages` files downloaded through [Package Control](http://wbond.net/sublime_packages/package_control) must start with "Theme - " to be usable in Themr.
