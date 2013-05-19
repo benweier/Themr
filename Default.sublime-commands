@@ -1,14 +1,18 @@
 [
     {
-        "caption": "Themr: List schemes",
+        "caption": "Themr: List themes",
         "command": "themr_list_themes"
     },
     {
-        "caption": "Themr: Next scheme",
+        "caption": "Themr: Next theme",
         "command": "themr_next_theme"
     },
     {
-        "caption": "Themr: Previous scheme",
-        "command": "themr_prev_theme"
+        "caption": "Themr: Previous theme",
+        "command": "themr_previous_theme"
+    },
+    {
+        "caption": "Themr: Random theme",
+        "command": "themr_random_theme"
     }
 ]
