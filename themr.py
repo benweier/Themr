@@ -21,8 +21,8 @@ class Themr():
 		themes.sort()
 		return themes
 
-	def set_theme(self, s):
-		self.settings().set('theme', s)
+	def set_theme(self, t):
+		self.settings().set('theme', t)
 		sublime.save_settings('Preferences.sublime-settings')
 
 	def get_theme(self):
@@ -56,7 +56,10 @@ class ThemrListThemesCommand(sublime_plugin.WindowCommand):
 	def run(self):
 		themes = Themr.load_themes()
 		the_theme = Themr.get_theme()
-		the_index = [theme[1] for theme in themes].index(the_theme)
+		try:
+			the_index = [theme[1] for theme in themes].index(the_theme)
+		except (ValueError):
+			the_index = 0
 
 		def on_done(index):
 			if index != -1:
