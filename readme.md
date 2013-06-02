@@ -21,3 +21,5 @@ Skip to the next theme with the "Themr: Next theme" command.
 Skip to the previous theme with the "Themr: Previous theme" command.
 * Default binding: `ctrl+shift+f8` (Windows/Linux) `super+shift+f8` (OSX)
 
+Select a random theme from the available themes with the "Themr: Random theme" command.
+* Default binding: `ctrl+shift+f4` (Windows/Linux) `super+shift+f4` (OSX)
