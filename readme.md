@@ -1,5 +1,5 @@
 # About
-Themr allows you to quickly select your UI theme from the command palette, as well as commands to easily cycle forward, backward, and randomly through your avaailable themes.
+Themr allows you to quickly select your UI theme from the command palette, as well as commands to easily cycle forward, backward, and randomly through your available themes.
 
 # Features
 * Full compatibility with Sublime Text 2 and 3.
