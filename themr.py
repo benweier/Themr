@@ -68,9 +68,6 @@ class ThemrListThemesCommand(sublime_plugin.WindowCommand):
 			if index != -1:
 				Themr.save('theme', themes[index][1])
 
-			if index == -1:
-				Themr.save('theme', themes[the_index][1])
-
 		try:
 			self.window.show_quick_panel(themes, on_done, 0, the_index)
 		except:
