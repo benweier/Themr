@@ -8,21 +8,24 @@ class Themr():
 	def load_themes(self):
 		themes = []
 
-		for root, dirs, files in os.walk(sublime.packages_path()):
-			for filename in (filename for filename in files if filename.endswith('.sublime-theme')):
-				name = filename.replace('.sublime-theme', '')
+		if int(sublime.version()) < 3000:
+			for root, dirs, files in os.walk(sublime.packages_path()):
+				for filename in (filename for filename in files if filename.endswith('.sublime-theme')):
+					name = filename.replace('.sublime-theme', '')
+					themes.append(['Theme: ' + name, filename])
+
+			for root, dirs, files in os.walk(sublime.installed_packages_path()):
+				for package in (package for package in files if package.endswith('.sublime-package')):
+					zf = zipfile.ZipFile(os.path.join(sublime.installed_packages_path(), package))
+					for filename in (filename for filename in zf.namelist() if filename.endswith('.sublime-theme')):
+						name = os.path.basename(filename).replace('.sublime-theme', '')
+						themes.append(["Theme: " + name, filename])
+
+		else:
+			for theme_resource in sublime.find_resources("*.sublime-theme"):
+				filename = os.path.basename(theme_resource)
+				name = os.path.splitext(filename)[0]
 				themes.append(['Theme: ' + name, filename])
-
-		for root, dirs, files in os.walk(sublime.installed_packages_path()):
-			for package in (package for package in files if package.endswith('.sublime-package')):
-				zf = zipfile.ZipFile(os.path.join(sublime.installed_packages_path(), package))
-				for filename in (filename for filename in zf.namelist() if filename.endswith('.sublime-theme')):
-					name = os.path.basename(filename).replace('.sublime-theme', '')
-					themes.append(["Theme: " + name, filename])
-
-		default_theme = os.path.join(os.getcwd(), 'Packages', 'Theme - Default.sublime-package')
-		if os.path.exists(default_theme):
-			themes.append(["Theme: Default", "Default.sublime-theme"])
 
 		themes.sort()
 		return themes
