@@ -44,7 +44,7 @@ class ThemrListThemesCommand(sublime_plugin.WindowCommand):
 		themes = Themr.load_themes()
 		the_theme = Themr.load('theme', 'Default.sublime-theme')
 		allow_preview = Themr.load('themr_allow_preview', False)
-		user_selected = False
+		self.user_selected = False
 		try:
 			the_index = [theme[1] for theme in themes].index(the_theme)
 		except (ValueError):
@@ -55,11 +55,10 @@ class ThemrListThemesCommand(sublime_plugin.WindowCommand):
 				Themr.save('theme', themes[index][1])
 
 		def on_select(index):
-			nonlocal user_selected
-			if user_selected == True and allow_preview == True:
+			if self.user_selected == True and allow_preview == True:
 				Themr.save('theme', themes[index][1])
 			else:
-				user_selected = True
+				self.user_selected = True
 
 		try:
 			self.window.show_quick_panel(themes, on_done, 0, the_index, on_select)
