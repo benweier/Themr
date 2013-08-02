@@ -8,7 +8,13 @@ class Themr():
 	def load_themes(self):
 		themes = []
 
-		if int(sublime.version()) < 3000:
+		try: # use find_resources() first for ST3
+			for theme_resource in sublime.find_resources("*.sublime-theme"):
+				filename = os.path.basename(theme_resource)
+				name = filename.replace('.sublime-theme', '')
+				themes.append(['Theme: ' + name, filename])
+
+		except: # fallback to walk() for ST2
 			for root, dirs, files in os.walk(sublime.packages_path()):
 				for filename in (filename for filename in files if filename.endswith('.sublime-theme')):
 					name = filename.replace('.sublime-theme', '')
@@ -20,12 +26,6 @@ class Themr():
 					for filename in (filename for filename in zf.namelist() if filename.endswith('.sublime-theme')):
 						name = os.path.basename(filename).replace('.sublime-theme', '')
 						themes.append(["Theme: " + name, filename])
-
-		else:
-			for theme_resource in sublime.find_resources("*.sublime-theme"):
-				filename = os.path.basename(theme_resource)
-				name = os.path.splitext(filename)[0]
-				themes.append(['Theme: ' + name, filename])
 
 		themes.sort()
 		return themes
