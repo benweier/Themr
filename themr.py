@@ -53,6 +53,7 @@ class ThemrListThemesCommand(sublime_plugin.WindowCommand):
 		def on_done(index):
 			if index != -1:
 				Themr.save('theme', themes[index][1])
+				sublime.status_message(themes[index][0])
 
 		def on_select(index):
 			if self.user_selected == True and allow_preview == True:
