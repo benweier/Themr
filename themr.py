@@ -30,25 +30,6 @@ class Themr():
 		themes.sort()
 		return themes
 
-	def cycle_theme(self, direction):
-		themes = self.load_themes()
-		the_theme = self.load('theme', 'Default.sublime-theme')
-		index = 0
-		the_index = [theme[1] for theme in themes].index(the_theme)
-		num_of_themes = len(themes)
-
-		if direction == 'next':
-			index = the_index + 1 if the_index < num_of_themes - 1 else 0
-
-		if direction == 'prev':
-			index = the_index - 1 if the_index > 0 else num_of_themes - 1
-
-		if direction == 'rand':
-			index = int(random() * len(themes))
-
-		self.save('theme', themes[index][1])
-		sublime.status_message(themes[index][0])
-
 	def save(self, setting, value):
 		sublime.load_settings(self.preferences).set(setting, value)
 		sublime.save_settings(self.preferences)
@@ -76,14 +57,32 @@ class ThemrListThemesCommand(sublime_plugin.WindowCommand):
 		except:
 			self.window.show_quick_panel(themes, on_done)
 
+class ThemrCycleThemesCommand(sublime_plugin.WindowCommand):
+	def run(self, direction):
+		themes = Themr.load_themes()
+		the_theme = Themr.load('theme', 'Default.sublime-theme')
+		index = 0
+		the_index = [theme[1] for theme in themes].index(the_theme)
+		num_of_themes = len(themes)
+
+		if direction == 'next':
+			index = the_index + 1 if the_index < num_of_themes - 1 else 0
+
+		if direction == 'prev':
+			index = the_index - 1 if the_index > 0 else num_of_themes - 1
+
+		if direction == 'rand':
+			index = int(random() * len(themes))
+
+		Themr.save('theme', themes[index][1])
+		sublime.status_message(themes[index][0])
+
 class ThemrNextThemeCommand(sublime_plugin.WindowCommand):
 	def run(self):
-		Themr.cycle_theme('next')
-
+		self.window.run_command('themr_cycle_themes', {'direction': 'next'})
 class ThemrPreviousThemeCommand(sublime_plugin.WindowCommand):
 	def run(self):
-		Themr.cycle_theme('prev')
-
+		self.window.run_command('themr_cycle_themes', {'direction': 'prev'})
 class ThemrRandomThemeCommand(sublime_plugin.WindowCommand):
 	def run(self):
-		Themr.cycle_theme('rand')
+		self.window.run_command('themr_cycle_themes', {'direction': 'rand'})
