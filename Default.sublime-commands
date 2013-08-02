@@ -5,14 +5,17 @@
     },
     {
         "caption": "Themr: Next theme",
-        "command": "themr_next_theme"
+        "command": "themr_cycle_themes",
+        "args": {"direction": "next"}
     },
     {
         "caption": "Themr: Previous theme",
-        "command": "themr_previous_theme"
+        "command": "themr_cycle_themes",
+        "args": {"direction": "prev"}
     },
     {
         "caption": "Themr: Random theme",
-        "command": "themr_random_theme"
+        "command": "themr_cycle_themes",
+        "args": {"direction": "rand"}
     }
 ]
