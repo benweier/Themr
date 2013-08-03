@@ -17,5 +17,33 @@
         "caption": "Themr: Random theme",
         "command": "themr_cycle_themes",
         "args": {"direction": "rand"}
+    },
+
+    {
+        "caption": "Themr: List favorite themes",
+        "command": "themr_list_favorite_themes"
+    },
+    {
+        "caption": "Themr: Next favorite theme",
+        "command": "themr_cycle_favorite_themes",
+        "args": {"direction": "next"}
+    },
+    {
+        "caption": "Themr: Previous favorite theme",
+        "command": "themr_cycle_favorite_themes",
+        "args": {"direction": "prev"}
+    },
+    {
+        "caption": "Themr: Random favorite theme",
+        "command": "themr_cycle_favorite_themes",
+        "args": {"direction": "rand"}
+    },
+    {
+        "caption": "Themr: Add current theme to favorites",
+        "command": "themr_favorite_current_theme"
+    },
+    {
+        "caption": "Themr: Remove current theme from favorites",
+        "command": "themr_unfavorite_current_theme"
     }
 ]
