@@ -3,8 +3,6 @@ import os, zipfile
 from random import random
 
 class Themr():
-	preferences = sublime.load_settings('Preferences.sublime-settings')
-
 	def load_themes(self):
 		all_themes = []
 
@@ -24,7 +22,7 @@ class Themr():
 					for filename in (filename for filename in zf.namelist() if filename.endswith('.sublime-theme')):
 						all_themes.append(filename)
 
-		favorite_themes = self.preferences.get('themr_favorites', [])
+		favorite_themes = self.get('themr_favorites', [])
 		themes = []
 
 		for theme in all_themes:
@@ -38,9 +36,8 @@ class Themr():
 
 	def list_themes(self, window, theme_list):
 		themes = [[theme[0], theme[1]] for theme in theme_list]
-		the_theme = Themr.get('theme', 'Default.sublime-theme')
-		allow_preview = Themr.get('themr_allow_preview', False)
-		self.user_selected = False
+		the_theme = self.get('theme', 'Default.sublime-theme')
+		allow_preview = self.get('themr_allow_preview', False)
 		try:
 			the_index = [theme[1] for theme in themes].index(the_theme)
 		except (ValueError):
@@ -48,12 +45,13 @@ class Themr():
 
 		def on_done(index):
 			if index != -1:
-				Themr.set('theme', themes[index][1])
+				self.set('theme', themes[index][1])
 				sublime.status_message(themes[index][0])
 
+		self.user_selected = False
 		def on_select(index):
 			if self.user_selected == True and allow_preview == True:
-				self.preferences.set('theme', themes[index][1]) # use ST's set() so the theme "preview" is not saved to file
+				self.set('theme', themes[index][1])
 			else:
 				self.user_selected = True
 
@@ -62,22 +60,7 @@ class Themr():
 		except:
 			window.show_quick_panel(themes, on_done)
 
-	def set(self, setting, value):
-		self.preferences.set(setting, value)
-		sublime.save_settings('Preferences.sublime-settings')
-
-	def get(self, setting, default):
-		return self.preferences.get(setting, default)
-
-Themr = Themr()
-
-class ThemrListThemesCommand(sublime_plugin.WindowCommand):
-	def run(self):
-		Themr.list_themes(self.window, Themr.load_themes())
-
-class ThemrCycleThemesCommand(sublime_plugin.WindowCommand):
-	def run(self, direction):
-		themes = Themr.load_themes()
+	def cycle_themes(self, themes, direction):
 		the_theme = Themr.get('theme', 'Default.sublime-theme')
 		index = 0
 		the_index = [theme[1] for theme in themes].index(the_theme)
@@ -94,6 +77,55 @@ class ThemrCycleThemesCommand(sublime_plugin.WindowCommand):
 
 		Themr.set('theme', themes[index][1])
 		sublime.status_message(themes[index][0])
+
+	def set(self, setting, value):
+		sublime.load_settings('Preferences.sublime-settings').set(setting, value)
+		sublime.save_settings('Preferences.sublime-settings')
+
+	def get(self, setting, default):
+		return sublime.load_settings('Preferences.sublime-settings').get(setting, default)
+
+Themr = Themr()
+
+class ThemrListThemesCommand(sublime_plugin.WindowCommand):
+	def run(self):
+		Themr.list_themes(self.window, Themr.load_themes())
+
+class ThemrListFavoriteThemesCommand(sublime_plugin.WindowCommand):
+	def run(self):
+		Themr.list_themes(self.window, [theme for theme in Themr.load_themes() if theme[2]])
+
+	def is_enabled(self):
+		return len(Themr.get('themr_favorites', [])) >= 1
+
+class ThemrCycleThemesCommand(sublime_plugin.WindowCommand):
+	def run(self, direction):
+		Themr.cycle_themes(Themr.load_themes(), direction)
+
+class ThemrCycleFavoriteThemesCommand(sublime_plugin.WindowCommand):
+	def run(self, direction):
+		Themr.cycle_themes([theme for theme in Themr.load_themes() if theme[2]], direction)
+
+	def is_enabled(self):
+		return len(Themr.get('themr_favorites', [])) > 1
+
+class ThemrFavoriteCurrentThemeCommand(sublime_plugin.WindowCommand):
+	def run(self):
+		favorites = Themr.get('themr_favorites', [])
+		favorites.append(Themr.get('theme', 'Default.sublime-theme'))
+		Themr.set('themr_favorites', favorites)
+
+	def is_enabled(self):
+		return Themr.get('theme', 'Default.sublime-theme') not in Themr.get('themr_favorites', [])
+
+class ThemrUnfavoriteCurrentThemeCommand(sublime_plugin.WindowCommand):
+	def run(self):
+		favorites = Themr.get('themr_favorites', [])
+		favorites.remove(Themr.get('theme', 'Default.sublime-theme'))
+		Themr.set('themr_favorites', favorites)
+
+	def is_enabled(self):
+		return Themr.get('theme', 'Default.sublime-theme') in Themr.get('themr_favorites', [])
 
 class ThemrNextThemeCommand(sublime_plugin.WindowCommand):
 	def run(self):
