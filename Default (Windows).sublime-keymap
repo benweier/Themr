@@ -1,6 +1,6 @@
 [
-    { "keys": ["ctrl+shift+f5"], "command": "themr_list_themes" },
-    { "keys": ["ctrl+shift+f7"], "command": "themr_cycle_themes", "args": {"direction": "prev"}},
-    { "keys": ["ctrl+shift+f8"], "command": "themr_cycle_themes", "args": {"direction": "next"}},
-    { "keys": ["ctrl+shift+f4"], "command": "themr_cycle_themes", "args": {"direction": "rand"}}
+    { "keys": ["ctrl+f5"], "command": "themr_list_themes" },
+    { "keys": ["ctrl+f7"], "command": "themr_cycle_themes", "args": {"direction": "prev"}},
+    { "keys": ["ctrl+f8"], "command": "themr_cycle_themes", "args": {"direction": "next"}},
+    { "keys": ["ctrl+f10"], "command": "themr_cycle_themes", "args": {"direction": "rand"}}
 ]
