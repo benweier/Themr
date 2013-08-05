@@ -2,5 +2,10 @@
     { "keys": ["super+f5"], "command": "themr_list_themes" },
     { "keys": ["super+f7"], "command": "themr_cycle_themes", "args": {"direction": "prev"}},
     { "keys": ["super+f8"], "command": "themr_cycle_themes", "args": {"direction": "next"}},
-    { "keys": ["super+f10"], "command": "themr_cycle_themes", "args": {"direction": "rand"}}
+    { "keys": ["super+f10"], "command": "themr_cycle_themes", "args": {"direction": "rand"}},
+
+    { "keys": ["super+shift+f5"], "command": "themr_list_favorite_themes" },
+    { "keys": ["super+shift+f7"], "command": "themr_cycle_favorite_themes", "args": {"direction": "prev"}},
+    { "keys": ["super+shift+f8"], "command": "themr_cycle_favorite_themes", "args": {"direction": "next"}},
+    { "keys": ["super+shift+f10"], "command": "themr_cycle_favorite_themes", "args": {"direction": "rand"}}
 ]
