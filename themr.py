@@ -63,8 +63,11 @@ class Themr():
 	def cycle_themes(self, themes, direction):
 		the_theme = Themr.get('theme', 'Default.sublime-theme')
 		index = 0
-		the_index = [theme[1] for theme in themes].index(the_theme)
 		num_of_themes = len(themes)
+		try:
+			the_index = [theme[1] for theme in themes].index(the_theme)
+		except (ValueError):
+			the_index = 0
 
 		if direction == 'next':
 			index = the_index + 1 if the_index < num_of_themes - 1 else 0
