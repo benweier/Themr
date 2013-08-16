@@ -3,6 +3,7 @@ Themr allows you to quickly change your UI theme with keyboard shortcuts and the
 
 # Features
 * Full compatibility with Sublime Text 2 and 3.
+* Allows themes to be favorited for even faster access.
 * Automatically loads all available `.sublime-theme` files, including those found inside `.sublime-package` files. No need to restart Sublime Text or initiate a reload!
 
 # Author's Note
