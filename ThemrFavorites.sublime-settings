@@ -1,0 +1,9 @@
+{
+    // You can add the name of your favorite themes to this list,
+    // e.g. "Soda Darm.tmTheme."  Themr modifies this list
+    // automatically when you use "Add current theme to favorites"
+    // or "Remove current theme from favorites" from the command palette.
+    "themr_favorites":
+    [
+    ]
+}
