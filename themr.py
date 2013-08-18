@@ -93,6 +93,16 @@ Themr = Themr()
 def plugin_loaded():
 	print('themr ready')
 
+	def on_theme_change():
+		the_theme = Themr.get_theme()
+		if sublime.find_resources(the_theme):
+			Themr.theme = the_theme
+		else:
+			Themr.set_theme(Themr.theme)
+			sublime.status_message('Theme not found. Reverting to ' + Themr.theme)
+
+	sublime.load_settings('Preferences.sublime-settings').add_on_change('theme', on_theme_change)
+
 	the_theme = Themr.get_theme()
 	if sublime.find_resources(the_theme):
 		Themr.theme = the_theme
