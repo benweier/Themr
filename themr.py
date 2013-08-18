@@ -109,8 +109,10 @@ def plugin_loaded():
 			Themr.set_theme('Default.sublime-theme')
 			sublime.status_message('Theme disabled. Reverting to Default.sublime-theme')
 
-	sublime.load_settings('Preferences.sublime-settings').add_on_change('theme', on_theme_change)
-	sublime.load_settings('Preferences.sublime-settings').add_on_change('ignored_packages', on_ignored_packages_change)
+	preferences = sublime.load_settings('Preferences.sublime-settings')
+
+	preferences.add_on_change('theme', on_theme_change)
+	preferences.add_on_change('ignored_packages', on_ignored_packages_change)
 
 	the_theme = Themr.get_theme()
 	if sublime.find_resources(the_theme):
