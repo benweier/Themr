@@ -101,7 +101,16 @@ def plugin_loaded():
 			Themr.set_theme(Themr.theme)
 			sublime.status_message('Theme not found. Reverting to ' + Themr.theme)
 
+	def on_ignored_packages_change():
+		the_theme = Themr.get_theme()
+		if sublime.find_resources(the_theme):
+			Themr.theme = the_theme
+		else:
+			Themr.set_theme('Default.sublime-theme')
+			sublime.status_message('Theme disabled. Reverting to Default.sublime-theme')
+
 	sublime.load_settings('Preferences.sublime-settings').add_on_change('theme', on_theme_change)
+	sublime.load_settings('Preferences.sublime-settings').add_on_change('ignored_packages', on_ignored_packages_change)
 
 	the_theme = Themr.get_theme()
 	if sublime.find_resources(the_theme):
