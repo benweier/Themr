@@ -7,7 +7,7 @@ class Themr():
 		all_themes = []
 
 		try: # use find_resources() first for ST3
-			for theme_resource in sublime.find_resources("*.sublime-theme"):
+			for theme_resource in sublime.find_resources('*.sublime-theme'):
 				filename = os.path.basename(theme_resource)
 				all_themes.append(filename)
 
@@ -89,6 +89,17 @@ class Themr():
 
 Themr = Themr()
 
+	# Called when Sublime API is ready [ST3]
+def plugin_loaded():
+	print('themr ready')
+
+	the_theme = Themr.get_theme()
+	if sublime.find_resources(the_theme):
+		Themr.theme = the_theme
+	else:
+		Themr.set_theme('Default.sublime-theme')
+		sublime.status_message('Theme not found. Reverting to Default.sublime-theme')
+
 class ThemrListThemesCommand(sublime_plugin.WindowCommand):
 	def run(self):
 		Themr.list_themes(self.window, Themr.load_themes())
@@ -117,7 +128,7 @@ class ThemrFavoriteCurrentThemeCommand(sublime_plugin.WindowCommand):
 		favorites = Themr.get_favorites()
 		favorites.append(the_theme)
 		Themr.set_favorites(favorites)
-		sublime.status_message(the_theme + ' added to favorites.')
+		sublime.status_message(the_theme + ' added to favorites')
 
 	def is_enabled(self):
 		return Themr.get_theme() not in Themr.get_favorites()
@@ -128,7 +139,7 @@ class ThemrUnfavoriteCurrentThemeCommand(sublime_plugin.WindowCommand):
 		favorites = Themr.get_favorites()
 		favorites.remove(the_theme)
 		Themr.set_favorites(favorites)
-		sublime.status_message(the_theme + ' removed from favorites.')
+		sublime.status_message(the_theme + ' removed from favorites')
 
 	def is_enabled(self):
 		return Themr.get_theme() in Themr.get_favorites()
