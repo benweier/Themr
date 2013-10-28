@@ -1,5 +1,5 @@
 ## About
-Themr allows you to quickly change your UI theme using the command palette or with keyboard shortcuts. With Themr, you get commands to easily cycle forward, backward and randomly through your available themes.
+Themr allows you to quickly change your UI theme using the command palette or keyboard shortcuts. With Themr, you get commands to easily cycle forward, backward and randomly through your available themes.
 
 ## Features
 * Full compatibility with Sublime Text 2 and 3.
@@ -8,14 +8,14 @@ Themr allows you to quickly change your UI theme using the command palette or wi
 * Registers a callback when the `theme` setting is changed to protect against saving an invalid filename (e.g. when manually editing the `Preferences.sublime-settings` file).
 
 ## Author's Note
-When changing to or from some themes, Sublime Text may need be restarted to fully clear the old theme settings and apply the new theme settings.
+When changing to or from some themes, Sublime Text may need be restarted to fully clear the old theme settings and apply the new theme settings. Switching themes within the same family (e.g. Soda Light <-> Soda Dark) usually doesn't cause any issues.
 
 ## Installation
-Install Themr through [Package Control](http://wbond.net/sublime_packages/package_control) or download and extract it into your Packages folder.
+Install Themr through [Package Control](https://sublime.wbond.net/) or download and extract it into your Sublime Text `Packages` folder.
 
 ## Usage
 
-**Themr: List themes** displays all the available themes in alphaical order.
+**Themr: List themes** displays all the available themes in alphabetical order.
 
 * Default binding: <kbd>Ctrl+F5</kbd> (Windows/Linux) <kbd>Cmd+F5</kbd> (OSX)
 
