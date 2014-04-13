@@ -6,6 +6,7 @@ Themr allows you to quickly change your UI theme using the command palette or ke
 * Allows themes to be favorited for even faster access.
 * Automatically loads all available `.sublime-theme` files, including those found inside `.sublime-package` files. No need to restart Sublime Text or initiate a reload!
 * Registers a callback when the `theme` setting is changed to protect against saving an invalid filename (e.g. when manually editing the `Preferences.sublime-settings` file).
+* Configure all customizable theme settings without checking the theme readme or manually scanning the theme file with a real-time preview via quick panel.
 
 ## Author's Note
 When changing to or from some themes, Sublime Text may need be restarted to fully clear the old theme settings and apply the new theme settings. Switching themes within the same family (e.g. Soda Light <-> Soda Dark) usually doesn't cause any issues.
