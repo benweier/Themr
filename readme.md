@@ -53,4 +53,6 @@ Install Themr through [Package Control](https://sublime.wbond.net/) or download 
 
 * Default binding: <kbd>Ctrl+Shift+F10</kbd> (Windows/Linux) <kbd>Cmd+Shift+F10</kbd> (OSX)
 
+### Other
+
 **Themr: Toggle Theme Settings** displays a list of settings supported by your current theme to preview changes in real time
