@@ -1,6 +1,10 @@
 import sublime, sublime_plugin
-import os, zipfile
+import os, zipfile, re
 from random import random
+
+# Used to locate setting keys within .sublime-theme files
+SETTINGS_PAT = re.compile(r'"settings":\s*\[(?:[, ]*"!?(\w+)")*\]')
+DEFAULT_THEME = 'Default.sublime-theme'
 
 class Themr():
 	def load_themes(self):
@@ -9,6 +13,7 @@ class Themr():
 		try: # use find_resources() first for ST3
 			for theme_resource in sublime.find_resources('*.sublime-theme'):
 				filename = os.path.basename(theme_resource)
+
 				all_themes.append(filename)
 
 		except: # fallback to walk() for ST2
@@ -78,7 +83,7 @@ class Themr():
 		sublime.save_settings('Preferences.sublime-settings')
 
 	def get_theme(self):
-		return sublime.load_settings('Preferences.sublime-settings').get('theme')
+		return sublime.load_settings('Preferences.sublime-settings').get('theme', DEFAULT_THEME)
 
 	def set_favorites(self, themes):
 		sublime.load_settings('ThemrFavorites.sublime-settings').set('themr_favorites', themes)
@@ -86,6 +91,21 @@ class Themr():
 
 	def get_favorites(self):
 		return sublime.load_settings('ThemrFavorites.sublime-settings').get('themr_favorites')
+
+	# Look for "settings" keys within sublime-theme file
+	def load_theme_settings(self, theme=None, settings=None):
+		if theme is None:
+			theme = self.get_theme()
+		if not isinstance(settings, sublime.Settings): 
+			settings = sublime.load_settings('Preferences.sublime-settings')
+		ts_keys = set()
+		# Load the actual theme resource files
+		resources = [sublime.load_resource(r) for r in sublime.find_resources(theme)]
+		for r in resources:
+			for k in re.findall(SETTINGS_PAT, r):
+				ts_keys.add(k)
+		# Return a list of tuples with setting key and values 
+		return [(k, settings.get(k, False)) for k in ts_keys]
 
 Themr = Themr()
 
@@ -174,3 +194,31 @@ class ThemrPreviousThemeCommand(sublime_plugin.WindowCommand):
 class ThemrRandomThemeCommand(sublime_plugin.WindowCommand):
 	def run(self):
 		self.window.run_command('themr_cycle_themes', {'direction': 'rand'})
+
+# Toggle one of the boolean settings used to customize current theme
+class ThemrToggleSettingsCommand(sublime_plugin.ApplicationCommand):
+	def run(self, settings_id="Preferences.sublime-settings"):
+		self.settings = sublime.load_settings(settings_id)
+		self.config = Themr.load_theme_settings()
+		setting_list = []
+		for c in self.config:
+			if c[1]: 
+				setting_list.append('Disable ' + c[0] + u'[\u2713]')
+			else:
+				setting_list.append('Enable ' + c[0] + '[ ]')		
+		self.toggled = -1
+		sublime.active_window().show_quick_panel(setting_list, lambda p: self.toggle(p), 0, 0, self.toggle)
+
+	# Toggles the setting key/val at the index specified, and reverses last
+	# toggle so user can preview changes via quick panel
+	def toggle(self, index):
+		if self.toggled >= 0:
+			self.settings.set(self.config[self.toggled][0], self.config[self.toggled][1])
+		self.toggled = index
+		key, value = self.config[index]
+		if value:
+			self.settings.set(self.config[index][0], False)
+			sublime.status_message("Themr: Disabled theme setting:" + key )
+		else:
+			self.settings.set(self.config[index][0], True)
+			sublime.status_message("Themr: Enabled theme setting:" + key )

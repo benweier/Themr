@@ -52,3 +52,5 @@ Install Themr through [Package Control](https://sublime.wbond.net/) or download 
 **Themr: Random favorite theme** switches immediately to a random theme in your favorites.
 
 * Default binding: <kbd>Ctrl+Shift+F10</kbd> (Windows/Linux) <kbd>Cmd+Shift+F10</kbd> (OSX)
+
+**Themr: Toggle Theme Settings** displays a list of settings supported by your current theme to preview changes in real time
