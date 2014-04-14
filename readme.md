@@ -14,6 +14,9 @@ When changing to or from some themes, Sublime Text may need be restarted to full
 ## Installation
 Install Themr through [Package Control](https://sublime.wbond.net/) or download and extract it into your Sublime Text `Packages` folder.
 
+## Contributors
+Toggle theme settings by [Eibbors](https://github.com/eibbors)
+
 ## Usage
 
 **Themr: List themes** displays all the available themes in alphabetical order.
