@@ -8,24 +8,23 @@ DEFAULT_THEME = 'Default.sublime-theme'
 
 class Themr():
 	def load_themes(self):
-		all_themes = []
+		all_themes = set()
 
 		try: # use find_resources() first for ST3
 			for theme_resource in sublime.find_resources('*.sublime-theme'):
 				filename = os.path.basename(theme_resource)
-
-				all_themes.append(filename)
+				all_themes.add(filename)
 
 		except: # fallback to walk() for ST2
 			for root, dirs, files in os.walk(sublime.packages_path()):
 				for filename in (filename for filename in files if filename.endswith('.sublime-theme')):
-					all_themes.append(filename)
+					all_themes.add(filename)
 
 			for root, dirs, files in os.walk(sublime.installed_packages_path()):
 				for package in (package for package in files if package.endswith('.sublime-package')):
 					zf = zipfile.ZipFile(os.path.join(sublime.installed_packages_path(), package))
 					for filename in (filename for filename in zf.namelist() if filename.endswith('.sublime-theme')):
-						all_themes.append(filename)
+						all_themes.add(filename)
 
 		favorite_themes = self.get_favorites()
 		themes = []
@@ -96,7 +95,7 @@ class Themr():
 	def load_theme_settings(self, theme=None, settings=None):
 		if theme is None:
 			theme = self.get_theme()
-		if not isinstance(settings, sublime.Settings): 
+		if not isinstance(settings, sublime.Settings):
 			settings = sublime.load_settings('Preferences.sublime-settings')
 		ts_keys = set()
 		# Load the actual theme resource files
@@ -104,7 +103,7 @@ class Themr():
 		for r in resources:
 			for k in re.findall(SETTINGS_PAT, r):
 				ts_keys.add(k)
-		# Return a list of tuples with setting key and values 
+		# Return a list of tuples with setting key and values
 		return [(k, settings.get(k, False)) for k in ts_keys]
 
 Themr = Themr()
@@ -202,10 +201,10 @@ class ThemrToggleSettingsCommand(sublime_plugin.ApplicationCommand):
 		self.config = Themr.load_theme_settings()
 		setting_list = []
 		for c in self.config:
-			if c[1]: 
+			if c[1]:
 				setting_list.append('Disable ' + c[0] + u'[\u2713]')
 			else:
-				setting_list.append('Enable ' + c[0] + '[ ]')		
+				setting_list.append('Enable ' + c[0] + '[ ]')
 		self.toggled = -1
 		sublime.active_window().show_quick_panel(setting_list, lambda p: self.toggle(p), 0, 0, self.toggle)
 
