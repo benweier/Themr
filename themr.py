@@ -199,6 +199,7 @@ class ThemrToggleSettingsCommand(sublime_plugin.ApplicationCommand):
 	def run(self, settings_id="Preferences.sublime-settings"):
 		self.settings = sublime.load_settings(settings_id)
 		self.config = Themr.load_theme_settings()
+		self.config.sort()
 		setting_list = []
 		for c in self.config:
 			if c[1]:
