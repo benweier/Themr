@@ -3,7 +3,6 @@ import os, zipfile, re
 from random import random
 
 # Used to locate setting keys within .sublime-theme files
-SETTINGS_PAT = re.compile(r'"settings":\s*\[(?:[, ]*"!?(\w+)")*\]')
 DEFAULT_THEME = 'Default.sublime-theme'
 
 class Themr():
@@ -97,11 +96,12 @@ class Themr():
 			the_theme = self.get_theme()
 		if not isinstance(settings, sublime.Settings):
 			settings = sublime.load_settings('Preferences.sublime-settings')
+		pattern = re.compile(r'"settings":\s*\[(?:[, ]*"!?(\w+)")*\]')
 		theme_settings = set()
 		# Load the actual theme resource files
 		resources = [sublime.load_resource(theme) for theme in sublime.find_resources(the_theme)]
 		for resource in resources:
-			for key in re.findall(SETTINGS_PAT, resource):
+			for key in re.findall(pattern, resource):
 				theme_settings.add(key)
 		# Return a list of tuples with setting key and values
 		return [(key, settings.get(key, False)) for key in theme_settings]
