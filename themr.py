@@ -203,9 +203,9 @@ class ThemrToggleSettingsCommand(sublime_plugin.ApplicationCommand):
 		setting_list = []
 		for c in self.config:
 			if c[1]:
-				setting_list.append('Disable ' + c[0] + u'[\u2713]')
+				setting_list.append('Disable ' + c[0] + u'   [\u2713]')
 			else:
-				setting_list.append('Enable ' + c[0] + '[ ]')
+				setting_list.append('Enable ' + c[0] + u'   [\u2717]')
 		self.toggled = -1
 		sublime.active_window().show_quick_panel(setting_list, lambda p: self.toggle(p), 0, 0, self.toggle)
 
