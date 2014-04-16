@@ -15,7 +15,7 @@ When changing to or from some themes, Sublime Text may need be restarted to full
 Install Themr through [Package Control](https://sublime.wbond.net/) or download and extract it into your Sublime Text `Packages` folder.
 
 ## Contributors
-Toggle Theme Settings by [Eibbors](https://github.com/eibbors)
+Toggle Theme Settings by [Eibbor](https://github.com/eibbors)
 
 ## Usage
 
