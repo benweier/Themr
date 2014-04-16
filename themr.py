@@ -92,19 +92,19 @@ class Themr():
 		return sublime.load_settings('ThemrFavorites.sublime-settings').get('themr_favorites')
 
 	# Look for "settings" keys within sublime-theme file
-	def load_theme_settings(self, theme=None, settings=None):
-		if theme is None:
-			theme = self.get_theme()
+	def load_theme_settings(self, the_theme=None, settings=None):
+		if the_theme is None:
+			the_theme = self.get_theme()
 		if not isinstance(settings, sublime.Settings):
 			settings = sublime.load_settings('Preferences.sublime-settings')
-		ts_keys = set()
+		theme_settings = set()
 		# Load the actual theme resource files
-		resources = [sublime.load_resource(r) for r in sublime.find_resources(theme)]
-		for r in resources:
-			for k in re.findall(SETTINGS_PAT, r):
-				ts_keys.add(k)
+		resources = [sublime.load_resource(theme) for theme in sublime.find_resources(the_theme)]
+		for resource in resources:
+			for key in re.findall(SETTINGS_PAT, resource):
+				theme_settings.add(key)
 		# Return a list of tuples with setting key and values
-		return [(k, settings.get(k, False)) for k in ts_keys]
+		return [(key, settings.get(key, False)) for key in theme_settings]
 
 Themr = Themr()
 
