@@ -23,6 +23,8 @@ class Themr(object):
 		self.theme = self.preferences.get('theme', DEFAULT_THEME)
 
 		def check_theme():
+			""" Check the theme can be set and revert to the previous or default theme if invalid """
+
 			the_theme = self.get_theme()
 			themes = self.find_themes()
 
@@ -41,6 +43,8 @@ class Themr(object):
 		check_theme() # run once at startup to validate theme setting
 
 	def find_themes(self):
+		""" Return a set of  all .sublime-theme files in the Sublime Text package folders """
+
 		themes = set()
 
 		try: # use find_resources() first for ST3
@@ -62,6 +66,8 @@ class Themr(object):
 		return themes
 
 	def load_themes(self):
+		""" Return a list of all .sublime-theme files with favorites flagged """
+
 		all_themes = self.find_themes()
 		favorite_themes = self.get_favorites()
 		themes = []
@@ -76,6 +82,8 @@ class Themr(object):
 		return themes
 
 	def list_themes(self, window, theme_list):
+		""" Display a quick panel with the contents of the theme_list """
+
 		themes = [[theme[0], theme[1]] for theme in theme_list]
 		the_theme = self.get_theme()
 		try:
@@ -84,6 +92,8 @@ class Themr(object):
 			the_index = 0
 
 		def on_done(index):
+			""" Set the selected theme """
+
 			if index != -1:
 				self.set_theme(themes[index][1])
 				sublime.status_message(themes[index][0])
@@ -94,6 +104,8 @@ class Themr(object):
 			window.show_quick_panel(themes, on_done)
 
 	def cycle_themes(self, themes, direction):
+		""" Adjust the selected theme in the given direction """
+
 		the_theme = Themr.instance().get_theme()
 		index = 0
 		num_of_themes = len(themes)
@@ -115,21 +127,31 @@ class Themr(object):
 		sublime.status_message(themes[index][0])
 
 	def set_theme(self, theme):
+		""" Save the theme value """
+
 		self.preferences.set('theme', theme)
 		sublime.save_settings(PREFERENCES)
 
 	def get_theme(self):
+		""" Return the current theme value """
+
 		return self.preferences.get('theme', DEFAULT_THEME)
 
 	def set_favorites(self, themes):
+		""" Save the favorites theme list """
+
 		self.favorites.set('themr_favorites', themes)
 		sublime.save_settings(FAVORITES)
 
 	def get_favorites(self):
+		""" Return the current favorites list """
+
 		return self.favorites.get('themr_favorites')
 
 	# Look for "settings" keys within the theme file
 	def load_theme_settings(self):
+		""" Parse the .sublime-theme file for any settings keys """
+
 		the_theme = Themr.instance().get_theme()
 		pattern = re.compile(r'"settings":\s*\[(?:[, ]*"!?(\w+)")*\]')
 		theme_settings = set()
