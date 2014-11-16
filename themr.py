@@ -231,7 +231,7 @@ class ThemrToggleSettingsCommand(sublime_plugin.WindowCommand):
 
 		# Toggles the setting key/val at the index specified
 		def on_done(index):
-			self.preferences.set(the_theme_settings[index][0], not the_theme_settings[index][1])
+			Themr.instance().preferences.set(the_theme_settings[index][0], not the_theme_settings[index][1])
 			sublime.save_settings(PREFERENCES)
 
 			if the_theme_settings[index][1]:
