@@ -32,6 +32,8 @@ Toggle Theme Settings by [Eibbor](https://github.com/eibbors)
 
 * Default binding: <kbd>Ctrl+F10</kbd> (Windows/Linux) <kbd>Cmd+F10</kbd> (OSX)
 
+**Themr: Toggle Theme Settings** displays a list of toggleable settings supported by your current theme.
+
 ### Favorites
 
 **Themr: Add current theme to favorites** and **Themr: Remove current theme from favorites** add and remove the currently selected theme to your favorites list.
@@ -53,8 +55,6 @@ Toggle Theme Settings by [Eibbor](https://github.com/eibbors)
 **Themr: Random favorite theme** switches immediately to a random theme in your favorites.
 
 * Default binding: <kbd>Ctrl+Shift+F10</kbd> (Windows/Linux) <kbd>Cmd+Shift+F10</kbd> (OSX)
-
-**Themr: Toggle Theme Settings** displays a list of toggleable settings supported by your current theme.
 
 ### Other Notes
 When changing between themes, Sublime Text may need be restarted to fully clear the old theme settings and apply the new theme settings. Switching themes within the same family (e.g. Soda Light <-> Soda Dark) usually doesn't cause any issues.
