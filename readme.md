@@ -1,5 +1,6 @@
 ## About
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/benweier/Themr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Themr allows you to quickly change your UI theme using the command palette or keyboard shortcuts. With Themr, you get commands to easily cycle forward, backward and randomly through your available themes.
 
 ## Features
