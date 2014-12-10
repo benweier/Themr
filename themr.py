@@ -38,12 +38,12 @@ class Themr(object):
 					self.set_theme(DEFAULT_THEME)
 					sublime.status_message('Theme not found. Reverting to ' + DEFAULT_THEME)
 
-		self.preferences.add_on_change('themr', check_theme)
-
-		check_theme() # run once at startup to validate theme setting
+		if self.preferences.get('themr_watch_settings', True):
+			self.preferences.add_on_change('themr', check_theme)
+			check_theme() # run once at startup to validate theme setting
 
 	def find_themes(self):
-		""" Return a set of  all .sublime-theme files in the Sublime Text package folders """
+		""" Return a set of all .sublime-theme files in the Sublime Text package folders """
 
 		themes = set()
 

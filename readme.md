@@ -58,5 +58,13 @@ Toggle Theme Settings by [Eibbor](https://github.com/eibbors)
 
 * Default binding: <kbd>Ctrl+Shift+F10</kbd> (Windows/Linux) <kbd>Cmd+Shift+F10</kbd> (OSX)
 
+## User Settings
+These settings are available to control some of Themr's behaviour. Add them to `Preferences.sublime-settings` if you wish to override the default value.
+
+`themr_watch_settings`: Boolean true|false. Defaults to true.
+
+Toggles the functionality of Themr to watch for changes to `Preferences.sublime-settings` and reset the `theme` setting if the theme cannot be found.
+
+
 ### Other Notes
 When changing between themes, Sublime Text may need be restarted to fully clear the old theme settings and apply the new theme settings. Switching themes within the same family (e.g. Soda Light <-> Soda Dark) usually doesn't cause any issues.
