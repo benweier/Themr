@@ -61,9 +61,9 @@ Toggle Theme Settings by [Eibbor](https://github.com/eibbors)
 ## User Settings
 These settings are available to control some of Themr's behaviour. Add them to `Preferences.sublime-settings` if you wish to override the default value.
 
-`themr_watch_settings`: Boolean true|false. Defaults to true.
+`themr_watch_settings`: Boolean true|false. Defaults to false.
 
-Toggles the functionality of Themr to watch for changes to `Preferences.sublime-settings` and reset the `theme` setting if the theme cannot be found.
+Themr is able to watch for changes to `Preferences.sublime-settings` and reset the `theme` setting if the theme file is invalid or cannot be found (e.g. when Package Control upgrades a Theme package it adds the plugin to the `ignored_packages` setting). Since Package Control 3.0, this feature is now handled by Package Control so settings is intended for legacy Package Control 2.0 users instead.
 
 
 ### Other Notes
