@@ -38,7 +38,7 @@ class Themr(object):
 					self.set_theme(DEFAULT_THEME)
 					sublime.status_message('Theme not found. Reverting to ' + DEFAULT_THEME)
 
-		if self.preferences.get('themr_watch_settings', True):
+		if self.preferences.get('themr_watch_settings', False):
 			self.preferences.add_on_change('themr', check_theme)
 			check_theme() # run once at startup to validate theme setting
 
