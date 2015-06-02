@@ -74,7 +74,7 @@ class Themr(object):
 
 		for theme in all_themes:
 			favorited = theme in favorite_themes
-			pretty_name = 'Theme: ' + theme.replace('.sublime-theme', '')
+			pretty_name = theme.replace('.sublime-theme', '')
 			if favorited: pretty_name += u'   \u2605' # Put a pretty star icon next to favorited themes. :)
 			themes.append([pretty_name, theme, favorited])
 
