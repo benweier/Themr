@@ -96,7 +96,7 @@ class Themr(object):
 
 			if index != -1:
 				self.set_theme(themes[index][1])
-				sublime.status_message('Theme: ' + themes[index][1].replace('.sublime-theme', ''))
+				sublime.status_message('Theme: ' + themes[index][0])
 
 		try:
 			window.show_quick_panel(themes, on_done, 0, the_index)

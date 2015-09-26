@@ -18,7 +18,6 @@
         "command": "themr_cycle_themes",
         "args": {"direction": "rand"}
     },
-
     {
         "caption": "Themr: List favorite themes",
         "command": "themr_list_favorite_themes"
