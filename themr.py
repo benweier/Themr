@@ -18,29 +18,12 @@ class Themr(object):
 		return cls._instance
 
 	def __init__(self):
-		self.preferences = sublime.load_settings(PREFERENCES)
-		self.favorites = sublime.load_settings(FAVORITES)
-		self.theme = self.preferences.get('theme', DEFAULT_THEME)
+		the_theme = self.get_theme()
+		themes = self.find_themes()
 
-		def check_theme():
-			""" Check the theme can be set and revert to the previous or default theme if invalid """
-
-			the_theme = self.get_theme()
-			themes = self.find_themes()
-
-			if the_theme in themes:
-				self.theme = the_theme
-			else:
-				if self.theme in themes:
-					self.set_theme(self.theme)
-					sublime.status_message('Theme not found. Reverting to ' + self.theme)
-				else:
-					self.set_theme(DEFAULT_THEME)
-					sublime.status_message('Theme not found. Reverting to ' + DEFAULT_THEME)
-
-		if self.preferences.get('themr_watch_settings', False):
-			self.preferences.add_on_change('themr', check_theme)
-			check_theme() # run once at startup to validate theme setting
+		if the_theme not in themes:
+			self.set_theme(DEFAULT_THEME)
+			sublime.status_message(the_theme + ' not found. Reverting to ' + DEFAULT_THEME)
 
 	def find_themes(self):
 		""" Return a set of all .sublime-theme files in the Sublime Text package folders """
@@ -106,7 +89,7 @@ class Themr(object):
 	def cycle_themes(self, themes, direction):
 		""" Adjust the selected theme in the given direction """
 
-		the_theme = Themr.instance().get_theme()
+		the_theme = self.get_theme()
 		index = 0
 		num_of_themes = len(themes)
 		try:
@@ -123,54 +106,51 @@ class Themr(object):
 		if direction == 'rand':
 			index = int(random() * len(themes))
 
-		Themr.instance().set_theme(themes[index][1])
+		self.set_theme(themes[index][1])
 		sublime.status_message(themes[index][0])
 
 	def set_theme(self, theme):
 		""" Save the theme value """
 
-		self.preferences.set('theme', theme)
+		sublime.load_settings(PREFERENCES).set('theme', theme)
 		sublime.save_settings(PREFERENCES)
 
 	def get_theme(self):
 		""" Return the current theme value """
 
-		return self.preferences.get('theme', DEFAULT_THEME)
+		return sublime.load_settings(PREFERENCES).get('theme', DEFAULT_THEME)
 
 	def set_favorites(self, themes):
 		""" Save the favorites theme list """
 
-		self.favorites.set('themr_favorites', themes)
+		sublime.load_settings(FAVORITES).set('themr_favorites', themes)
 		sublime.save_settings(FAVORITES)
 
 	def get_favorites(self):
 		""" Return the current favorites list """
 
-		return self.favorites.get('themr_favorites')
+		return sublime.load_settings(FAVORITES).get('themr_favorites')
 
 	# Look for "settings" keys within the theme file
 	def load_theme_settings(self):
 		""" Parse the .sublime-theme file for any settings keys """
 
-		the_theme = Themr.instance().get_theme()
+		the_theme = self.get_theme()
 		pattern = re.compile(r'"settings":\s*\[(?:[, ]*"!?(\w+)")*\]')
 		theme_settings = set()
 
-		# Load the actual theme resource files
+		# Load the theme resource file
 		resources = [sublime.load_resource(theme) for theme in sublime.find_resources(the_theme)]
 		for resource in resources:
 			for key in re.findall(pattern, resource):
 				theme_settings.add(key)
 
 		# Return a list of tuples with setting key and values
-		return [(key, self.preferences.get(key, False)) for key in theme_settings]
+		return [(key, sublime.load_settings(PREFERENCES).get(key, False)) for key in theme_settings]
 
 	# Called when Sublime API is ready [ST3]
 def plugin_loaded():
 	Themr.instance()
-
-def plugin_unloaded():
-	Themr.instance().preferences.clear_on_change('themr')
 
 class ThemrListThemesCommand(sublime_plugin.WindowCommand):
 	def run(self):
@@ -232,7 +212,7 @@ class ThemrToggleSettingsCommand(sublime_plugin.WindowCommand):
 		# Toggles the setting key/val at the index specified
 		def on_done(index):
 			if index != -1:
-				Themr.instance().preferences.set(the_theme_settings[index][0], not the_theme_settings[index][1])
+				sublime.load_settings(PREFERENCES).set(the_theme_settings[index][0], not the_theme_settings[index][1])
 				sublime.save_settings(PREFERENCES)
 
 				if the_theme_settings[index][1]:
@@ -256,5 +236,3 @@ class ThemrRandomThemeCommand(sublime_plugin.WindowCommand):
 		self.window.run_command('themr_cycle_themes', {'direction': 'rand'})
 
 if is_ST2: plugin_loaded()
-
-unload_handler = plugin_unloaded if is_ST2 else lambda: None
