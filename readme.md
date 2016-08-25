@@ -1,13 +1,12 @@
 ## About
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/benweier/Themr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Themr allows you to quickly change your UI theme using the command palette or keyboard shortcuts. With Themr, you get commands to easily cycle forward, backward and randomly through your available themes.
+Themr allows you to quickly and easily cycle forward, backward, or randomly through your available UI themes using the command palette or keyboard shortcuts.
 
 ## Features
 * Full compatibility with Sublime Text 2 and 3.
 * Allows themes to be favorited for even faster access.
 * Automatically loads all available `.sublime-theme` files, including those found inside `.sublime-package` files.
-* Registers a callback for when settings are changed to protect against saving an invalid theme name (e.g. when manually editing the `Preferences.sublime-settings` file).
 * Configure all customizable theme settings without checking the theme readme or manually scanning the theme file. [ST3 ONLY]
 
 ## Installation
